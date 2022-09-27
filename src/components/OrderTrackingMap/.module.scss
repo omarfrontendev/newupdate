@@ -1,0 +1,42 @@
+.cutsome__marker {
+
+  position: relative;
+  min-width: 177px;
+  background-color: #FF7800;
+  transform: translate(-100%, 27px);
+  color: #FFF;
+  padding: 10px 14px 14px;
+  border-radius: 8px 0 8px 8px;
+
+  .location__title {
+    font-size: 14px;
+    margin-bottom: 5px;
+    line-height: 21px;
+  }
+  .location {
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 70%;
+    line-height: 18px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -17px;
+    right: -17px;
+    border: 17px solid #ff7800;
+    border-color: transparent;
+    border-left-color: #ff7800;
+    transform: rotate(45deg);
+  }
+
+  .marker {
+    color: #FF7800;
+    width: 177px;
+    height: 40px;
+    position: absolute;
+    top: -66px;
+    right: -50%;
+  }
+}

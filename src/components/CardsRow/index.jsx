@@ -8,11 +8,9 @@ export default function CardsRow({ children, title, link }) {
     <div className={styles.cards__row__wrapper}>
       <div className={styles.row__header}>
         <p className={styles.row__title}>{title}</p>
-        <Link to={link || "/"}>
-          <a className={styles.row__link} href={link || "/"}>
-            <span>view more</span>
-            <IoIosArrowDropright className={styles.link__arrow__icon} />
-          </a>
+        <Link className={styles.row__link} to={link || "/"}>
+          <span>view more</span>
+          <IoIosArrowDropright className={styles.link__arrow__icon} />
         </Link>
       </div>
       <div className={styles.row__contant__wrapper}>{children}</div>

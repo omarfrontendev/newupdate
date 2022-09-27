@@ -3,22 +3,45 @@
 .user__dropdown {
   padding: 14px 18px;
   row-gap: 25px;
-  color: $title__text__color;
+  color: $title__text__color !important;
   font-size: $ft__14;
   font-weight: $ft__w__medium;
-
+  .icon {
+    color: #2e374d !important;
+    font-size: 18px;
+  }
   .row {
+    padding: 0;
     background-color: transparent;
+    color: #2e374d;
     border: none;
     outline: none;
-
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &.small__screen {
+      display: none !important;
+    }
     .left__row {
       column-gap: 10px;
-
+      .title {
+        font-weight: 500;
+      }
       .red__title {
-        color: #FF4646;
+        color: #ff4646 !important;
       }
     }
   }
-
 }
+
+// =========== Start Media Max-width: 991px (768px - 991px) ================ //
+@media (max-width: 991px) {
+  .user__dropdown {
+    .row {
+      &.small__screen {
+        display: flex !important;
+      }
+    }
+  }
+}
+// =========== End Media Max-width: 991px (768px - 991px) ================ //

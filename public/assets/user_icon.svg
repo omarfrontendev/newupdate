@@ -1,7 +1,0 @@
-<svg id="vuesax_bulk_user" data-name="vuesax/bulk/user" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
-  <g id="user">
-    <path id="Vector" d="M0,0H30V30H0Z" fill="none" opacity="0"/>
-    <path id="Vector-2" data-name="Vector" d="M12.5,6.25A6.25,6.25,0,1,1,6.25,0,6.25,6.25,0,0,1,12.5,6.25Z" transform="translate(8.75 2.5)" fill="#e0e0e0"/>
-    <path id="Vector-3" data-name="Vector" d="M11.362,0C5.1,0,0,4.2,0,9.375A.619.619,0,0,0,.625,10H22.1a.619.619,0,0,0,.625-.625C22.725,4.2,17.625,0,11.362,0Z" transform="translate(3.638 18.125)" fill="#4e22d0"/>
-  </g>
-</svg>

@@ -4,7 +4,7 @@ body {
   background-color: $bg__white;
   font-size: $ft__14;
   font-weight: $ft__w__medium;
-  font-family: $main__font__family;
+  font-family: $main__font__family, $sec__font__family;
 }
 
 ul {
@@ -28,3 +28,64 @@ h6 {
   padding: 0;
   margin: 0;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.swiper {
+  .swiper-pagination-bullet {
+    background-color: red;
+    &.swiper-pagination-bullet-active {
+      background-color: $main__orange;
+    }
+  }
+}
+
+.container__wrapper {
+  padding: 0 48px;
+  min-width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .container__wrapper {
+    padding: 0px 36px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container__wrapper {
+    margin-left: 0;
+    padding: 0px 24px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .container__wrapper {
+    padding: 0px 16px;
+  }
+}
+
+input {
+  -webkit-appearance: none !important;
+  -moz-appearance: textfield !important;
+}
+
+/* width */
+// ::-webkit-scrollbar {
+//   width: 7px;
+// }
+
+// /* Track */
+// ::-webkit-scrollbar-track {
+//   background: $pure__white;
+// }
+
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//   background: $main__purple;
+// }
+
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: $main__orange;
+// }

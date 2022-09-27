@@ -1,0 +1,44 @@
+@import "../../../styles/variables.scss";
+
+.category__btn {
+  width: 100%;
+
+  .options__btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    white-space: pre;
+    padding: 6px;
+    border-radius: 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: $dark__text__color;
+    font-size: $ft__14;
+    font-weight: $ft__w__regular;
+    .btn__word {
+      text-align: center;
+      flex: 1;
+      padding: 0 8px;
+      min-width: 70px;
+    }
+    .options__icon {
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      background-color: #eaeaea;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .checkbox:checked + label {
+    color: $pure__white;
+    background-color: $main__orange;
+    box-shadow: 0px 8px 20px #f08f2040;
+    .options__icon {
+      background-color: $pure__white;
+    }
+  }
+}

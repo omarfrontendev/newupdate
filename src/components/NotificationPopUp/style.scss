@@ -1,0 +1,114 @@
+.toast {
+  //   all: unset !important;
+  border: 0 !important;
+  //   opacity: 1 !important;
+  position: relative !important;
+  // max-height: auto !important;
+  min-height: 120px !important;
+  max-height: 600px !important;
+  display: block !important;
+  //   overflow: hidden !important;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07) !important;
+  border-radius: 24px !important ;
+  .bg {
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    position: absolute;
+    height: 50%;
+    border-radius: 24px 24px 0px 0px !important ;
+  }
+  .toast__wrapper {
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    top: 7px;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    background-color: #fff;
+    border-radius: 24px 24px 16px 16px !important ;
+    padding: 16px 16px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.07) !important;
+    .toast-header {
+      all: unset !important;
+      width: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+      padding-bottom: 5px !important;
+      .notify_type {
+        font-weight: 600;
+        text-transform: capitalize;
+      }
+      .close__btn {
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.25);
+        font-size: 18px;
+        border: 0;
+        background-color: transparent;
+        outline: none;
+      }
+    }
+    .toast-body {
+      min-height: auto !important;
+      height: auto !important;
+      font-weight: 400;
+      font-size: 13px;
+      padding: 0;
+      padding-top: 8px;
+      color: #363651;
+    }
+  }
+}
+
+.toast {
+  .error {
+    .bg {
+      background-color: #c80000;
+    }
+    .toast__wrapper {
+      .toast-header {
+        .notify_type {
+          color: #c80000;
+        }
+      }
+    }
+  }
+  .success {
+    .bg {
+      background-color: #22d07f;
+    }
+    .toast__wrapper {
+      .toast-header {
+        .notify_type {
+          color: #22d07f;
+        }
+      }
+    }
+  }
+  .warning {
+    .bg {
+      background-color: #ff7800;
+    }
+    .toast__wrapper {
+      .toast-header {
+        .notify_type {
+          color: #ff7800;
+        }
+      }
+    }
+  }
+  .info {
+    .bg {
+      background-color: #4e22d0;
+    }
+    .toast__wrapper {
+      .toast-header {
+        .notify_type {
+          color: #4e22d0;
+        }
+      }
+    }
+  }
+}

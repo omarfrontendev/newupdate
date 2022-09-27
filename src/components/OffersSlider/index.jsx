@@ -4,41 +4,39 @@ import SwiperSlider from "../SwiperSlider";
 import { SwiperSlide } from "swiper/react";
 import OfferCard from "../OfferCard";
 
-const offersArray = [
-  {
-    description: "60% off the full Price of tridint Food",
-    img: "/assets/unnamed.png",
-  },
-  {
-    description: "60% off the full Price of tridint Food",
-    img: "/assets/unnamed.png",
-  },
-  {
-    description: "60% off the full Price of tridint Food",
-    img: "/assets/unnamed.png",
-  },
-  {
-    description: "60% off the full Price of tridint Food",
-    img: "/assets/unnamed.png",
-  },
-];
-
-export default function OffersSlider() {
+export default function OffersSlider({ items }) {
   return (
-    <div className="mb-5">
-      <div className={styles.offers__slider__wrapper}>
-        <SwiperSlider spv={3.8}>
-          {offersArray.map((offer, index) => (
-            <SwiperSlide key={index}>
-              <OfferCard
-                index={index}
-                description={offer.description}
-                img={offer.img}
-              />
-            </SwiperSlide>
-          ))}
-        </SwiperSlider>
-      </div>
+    <div className={styles.offers__slider__wrapper}>
+      <SwiperSlider
+        paginated={false}
+        centeredSlides={true}
+        loop={true}
+        autoPlay={{ play: true, delay: 5000 }}
+        breakPoints={{
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 14,
+          },
+          567: {
+            slidesPerView: 1.5,
+            spaceBetween: 24,
+          },
+          768: {
+            slidesPerView: 1.5,
+            spaceBetween: 36,
+          },
+          1024: {
+            slidesPerView: 1.5,
+            spaceBetween: 42,
+          },
+        }}
+      >
+        {items.map((item, index) => (
+          <SwiperSlide key={index}>
+            <OfferCard index={index} item={item} />
+          </SwiperSlide>
+        ))}
+      </SwiperSlider>
     </div>
   );
 }

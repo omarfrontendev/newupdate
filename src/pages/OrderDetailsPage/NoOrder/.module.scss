@@ -1,0 +1,31 @@
+.no__order__component {
+  width: 100%;
+  min-height: calc(100vh - 200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .no__order__img {
+    width: 80vw;
+    user-select: none;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+  }
+}
+
+@media screen and (min-width: 991px) {
+  .no__order__component {
+    .no__order__img {
+      width: 60vw;
+    }
+  }
+}
+@media screen and (min-width: 1199px) {
+  .no__order__component {
+    .no__order__img {
+      width: 40vw;
+    }
+  }
+}

@@ -1,31 +1,34 @@
 @import "../../styles/variables.scss";
+
 .res__summary__card__wrapper {
   position: relative;
   .res__summary__card {
     height: 178px;
     border-radius: 12px;
     box-shadow: 0px 6px 15px #7779b20f;
-    padding: 23px;
+    padding: 23px 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     background-color: $pure__white;
     .res__img__wrapper {
-      background-color: $main__orange;
       border-radius: 50%;
-      display: grid;
-      place-items: center;
       overflow: hidden;
-      .resturant__logo {
-        border-radius: 50%;
-        width: 82px;
-        height: 82px;
+      width: 82px;
+      height: 82px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 12px;
+      .restaurant__logo {
+        object-position: center;
+        object-fit: cover;
       }
     }
     .res__name {
       font-size: $ft__15;
       color: $title__text__color;
+      margin-bottom: 6px;
     }
     .res__rate {
       line-height: 0;
@@ -46,7 +49,8 @@
     position: absolute;
     right: 5px;
     top: 6px;
-    box-shadow: 0px 4px 20px #f08f2026;
+    // box-shadow: 0px 4px 20px #f08f2026;
+    border-radius: 8px;
     .meal__like__btn {
       all: unset;
       cursor: pointer;
@@ -62,4 +66,7 @@
       }
     }
   }
+}
+.spinner {
+  color: red;
 }

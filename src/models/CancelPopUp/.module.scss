@@ -1,0 +1,55 @@
+@import "../../styles/variables.scss";
+
+.cancel__content {
+  text-align: center;
+  padding: 20px;
+
+  .cancel__ph {
+    font-size: 18px;
+    font-weight: 500;
+    color: #07143b;
+    margin-bottom: 40px;
+  }
+  .btns {
+    padding: 0 10%;
+    column-gap: 24px;
+    .btn {
+      outline: none;
+      font-size: 14px;
+      font-weight: 400;
+      width: 140px;
+      height: 40px;
+      max-width: 100%;
+      border: 2px solid $main__orange;
+      color: $pure__white;
+      background-color: $main__orange;
+      border-radius: 50px;
+      &:first-of-type {
+        &:hover {
+          color: #fff;
+          background-color: $main__orange;
+        }
+      }
+      &.btn__close {
+        background-color: $pure__white;
+        border-color: $dark__text__color;
+        color: $dark__text__color;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .cancel__content {
+    .cancel__ph {
+      font-size: 18px;
+    }
+    .btns {
+      column-gap: 14px;
+
+      .btn {
+        font-size: 16px;
+      }
+    }
+  }
+}

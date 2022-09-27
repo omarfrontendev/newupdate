@@ -1,7 +1,0 @@
-<svg id="home" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
-  <g id="home-2" data-name="home">
-    <path id="Vector" d="M0,0H30V30H0Z" transform="translate(30 30) rotate(180)" fill="none" opacity="0"/>
-    <path id="Vector-2" data-name="Vector" d="M10.495.831,1.486,8.077a4.415,4.415,0,0,0-1.443,3.8L1.772,22.271a4.152,4.152,0,0,0,3.952,3.356h14.56a4.177,4.177,0,0,0,3.952-3.356l1.729-10.393a4.488,4.488,0,0,0-1.443-3.8L15.513.844A4.178,4.178,0,0,0,10.495.831Z" transform="translate(1.997 2.184)" fill="#e0e0e0"/>
-    <path id="Vector-3" data-name="Vector" d="M5,2.5A2.5,2.5,0,1,1,2.5,0,2.5,2.5,0,0,1,5,2.5Z" transform="translate(12.5 13.816)" fill="#4e22d0"/>
-  </g>
-</svg>

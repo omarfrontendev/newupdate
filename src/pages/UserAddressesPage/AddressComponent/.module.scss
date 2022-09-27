@@ -1,0 +1,131 @@
+@import "../../../styles/variables.scss";
+
+.address__component {
+  width: 100%;
+  border-radius: 8px;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.082);
+  background-color: $pure__white;
+  padding: 16px 20px;
+  margin: 10px 0;
+  box-shadow: 0px 6px 15px #7779b20a;
+  &.clickable {
+    cursor: pointer;
+    padding: 8px 16px;
+    .address_data {
+      .title {
+        font-size: 10px;
+      }
+      .address__inf {
+        display: none !important;
+      }
+    }
+    &.default {
+      border: 2px solid $main__orange;
+      &::after {
+        display: block;
+        right: 10px;
+        top: -10px;
+        height: 20px;
+        line-height: 20px;
+        width: 50px;
+        font-size: 9px;
+      }
+    }
+  }
+  &.default {
+    border: 2px solid $main__orange;
+    position: relative;
+    &::after {
+      display: block;
+      content: "default";
+      position: absolute;
+      right: 20px;
+      top: -13px;
+      color: #fff;
+      background-color: $main__orange;
+      height: 26px;
+      line-height: 26px;
+      text-transform: capitalize;
+      font-weight: 400;
+      width: 70px;
+      text-align: center;
+      border-radius: 1000px;
+      font-size: 12px;
+    }
+  }
+  .address_data {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    .title {
+      color: $title__text__color;
+      font-size: 16px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1; /* number of lines to show */
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+      span {
+        font-weight: 400;
+        font-size: 11px;
+      }
+    }
+    .address__inf {
+      color: $description__text;
+      font-size: 11px;
+      font-weight: 400;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1; /* number of lines to show */
+      line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+  }
+  footer {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 10px;
+    .setDefault__btn,
+    .delete__btn {
+      background-color: transparent;
+      border: 0;
+      outline: none;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .setDefault__btn {
+      color: $main__orange;
+    }
+    .delete__btn {
+      .icon {
+        font-size: 22px;
+        &:hover {
+          color: red;
+        }
+      }
+    }
+    .actions {
+      display: flex;
+      align-items: center;
+      column-gap: 15px;
+      button {
+        all: unset;
+        height: 22px;
+        cursor: pointer;
+        text-transform: capitalize;
+        font-size: 11px;
+        font-weight: 400;
+        &:first-of-type {
+          color: red;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

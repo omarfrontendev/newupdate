@@ -1,0 +1,52 @@
+@import "../../../styles/variables.scss";
+
+.empty__list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 25px;
+  padding: 50px 0;
+  .head {
+    color: $main__orange;
+    font-size: 20px;
+  }
+  .content {
+    color: $dark__gray;
+    font-size: 20px;
+  }
+  .span {
+    color: #bbb;
+    font-weight: 400;
+    font-size: 14px;
+    max-width: 250px;
+    text-align: center;
+  }
+  .btn {
+    all: unset;
+    cursor: pointer;
+    width: 230px;
+    height: 50px;
+    border-radius: 1000px;
+    text-align: center;
+    background-color: $main__orange;
+    color: $pure__white;
+    font-size: 13px !important;
+  }
+  .img__wrapper {
+    user-select: none;
+    pointer-events: none;
+    height: 200px;
+    width: 100%;
+    .img {
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      object-fit: cover;
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+}

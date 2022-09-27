@@ -1,18 +1,56 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-import { EmailIcon, PasswordIcon, UserAdressIcon, UserMobileIcon, UserNameIcon } from '../../UI/icons/icons';
 import styles from './.module.scss'
 
-export default function Input({ type, placeholder, value, setValue, id, data }) {
+export default function Input({ type, placeholder, value, setValue, icon, id, data, textarea, file }) {
 
   const [showPasord, setShowPassword] = useState(false);
 
-  const icon = 
-  id ===  'user__name' ? <UserNameIcon /> :
-  id === 'user__email' ? <EmailIcon /> :
-  id === 'user__mobile_Number' ? <UserMobileIcon /> : 
-  id === 'user__Address' ? <UserAdressIcon /> : <PasswordIcon />;
+  if(file) {
+    return (
+      <div className={`${styles.input__control} ${styles.input__file} d-flex align-items-center`}>
+        <input 
+          className={`${styles.input} d-none`}
+          placeholder={placeholder} 
+          type={showPasord ? 'text' : type}
+          value={value} 
+          onChange={e => {
+            setValue({
+              ...data,
+              [id]: e.target.value
+            })
+          }}
+          id={id}
+        />
+        <p className={`${styles.text} ${data[id] ? styles.focus : ''}`}>{data[id] || placeholder}</p>
+        <label htmlFor={id} className={styles.label}>
+          {icon}
+        </label> 
+      </div>
+    )
+  }
 
+  if(textarea) {
+    return (
+      <div className={`${styles.input__control} ${styles.textarea}`}>
+        <span className={styles.input__icon}>
+          {icon}
+        </span> 
+        <textarea 
+          className={styles.input}
+          placeholder={placeholder} 
+          type={showPasord ? 'text' : type}
+          value={value} 
+          onChange={e => {
+            setValue({
+              ...data,
+              [id]: e.target.value
+            })
+          }}
+        />
+    </div>
+    )
+  }
 
   return (
     <div className={`${styles.input__control} d-flex align-items-center`}>
@@ -24,10 +62,12 @@ export default function Input({ type, placeholder, value, setValue, id, data }) 
         placeholder={placeholder} 
         type={showPasord ? 'text' : type}
         value={value} 
-        onChange={e => setValue({
-          ...data,
-          [id]: e.target.value
-        })}
+        onChange={e => {
+          setValue({
+            ...data,
+            [id]: e.target.value
+          })
+        }}
       />
       {type === 'password' && 
       <button 

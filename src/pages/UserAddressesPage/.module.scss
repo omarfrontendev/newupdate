@@ -1,0 +1,30 @@
+@import "../../styles/variables.scss";
+
+.addreses__page {
+  .__row__wrapper {
+    margin-bottom: 46px;
+    .row__header {
+      margin-bottom: 43px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .row__title {
+        font-size: $ft__18;
+        color: $darkblue__text__color;
+      }
+      .row__btn {
+        all: unset;
+        cursor: pointer;
+        span {
+          margin: 0 10px;
+        }
+        color: $darkblue__text__color;
+        .plus__icon {
+          color: $main__orange;
+          margin-left: 8px;
+          font-size: $ft__16;
+        }
+      }
+    }
+  }
+}

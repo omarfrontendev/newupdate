@@ -1,5 +1,5 @@
-.slider {
-  .swiper-pagination {
-    display: none !important;
-  }
+@import "../../styles/variables.scss";
+
+.offers__slider__wrapper {
+  margin: 50px 0;
 }

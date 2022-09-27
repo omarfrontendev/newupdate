@@ -1,145 +1,302 @@
-import React, { useEffect, useState } from 'react'
-import { NoteIcon, Star } from '../../UI/icons/icons'
-import { HiLocationMarker, HiPlus } from 'react-icons/hi'
-import { GoDash } from 'react-icons/go'
-import DropDownMenu from '../DropDownMenu/'
-import styles from './.module.scss'
+import React, { useEffect, useState } from "react";
+import { NoteIcon } from "../../UI/icons";
+import MenuDropDown from "../MenuDropDown";
+import styles from "./.module.scss";
+import SubmitBtn from "../SubmitBtn";
+import CheckoutForm from "../CheckoutForm";
+import CartHeader from "./CartHeader";
+import { connect } from "react-redux";
+import {
+  getUserCart,
+  sendUserCartNote,
+  emptyUserCart,
+  getUserAddreses,
+} from "../../redux/actions";
+import Accordion from "../Accordion";
+import CartItem from "./CartItem";
+import { Form, Field } from "react-final-form";
+import { isEmpty } from "lodash";
+import { TbShoppingCartX } from "react-icons/tb";
+import EmptyCart from "./EmptyCart";
 
-export default function CartDropdown({ state, setState, id }) {
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = {
+  getUserCart,
+  sendUserCartNote,
+  emptyUserCart,
+  getUserAddreses,
+};
 
-  const [restaurant, setRestaurant] = useState({});
-  const [items, setItems] = useState([]);
-  const [paymentDetails, setPaymentDetails] = useState([]);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(function CartDropdown({
+  notMenu,
+  onClose,
+  showHeader,
+  getUserCart,
+  userCart,
+  sendUserCartNote,
+  emptyUserCart,
+  getUserAddreses,
+}) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [checkout, setCheckout] = useState(false);
+  const [confirm, setconfirm] = useState(false);
 
-  useEffect(() => (
-    setRestaurant({
-      name: 'Pizza Hut',
-      text: 'Pizza Hut Food',
-      img: '/assets/unnamed.png',
-      rating: 4.8,
-      address: 'No 03, 4th Lane, Newyork'
-    })
-  ), []);
+  useEffect(() => {
+    (async () => {
+      await getUserCart();
+      setIsLoading(false);
+      await getUserAddreses();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  useEffect(() => (
-    setItems([
-      {
-        id: 1,
-        name: 'Beef Burger',
-        itemPrice: 150,
-        amount: 2
-      },
-      {
-        id: 2,
-        name: 'Big Tisty',
-        itemPrice: 150,
-        price: 150,
-        amount: 5
-      },
-      {
-        id: 3,
-        name: 'Pizza Large',
-        itemPrice: 150,
-        amount: 4
-      },
-      {
-        id: 4,
-        name: 'Pizza Large',
-        itemPrice: 150,
-        amount: 1
-      },
-    ])
-  ), []);
-
-  useEffect(() => (
-    setPaymentDetails([
-      {
-        id: 1,
-        detail: 'Subtotal',
-        value: 178.00
-      },
-      {
-        id: 2,
-        detail: 'Delivery fee',
-        value: 19.00 
-      },
-    ])
-  ), []);
-
-  const totalPaymentDratils = paymentDetails.map(p => p.value).reduce((a, b) => a + b, 0);
-
+  const submitCartNotes = async (values) => {
+    if (!isEmpty(values)) {
+      await sendUserCartNote(values.notes);
+    }
+  };
 
   return (
-    <DropDownMenu
-      state={state}
-      setState={setState}
-      id={id}
-    >
-      <div className={styles.cartDropdown}>
-        <div className={styles.header__dropdown}>
-          <div className={`d-flex align-items-center ${styles.cart__header}`}>
-            <div className={styles.header__image}>
-              <img className={styles.image} src={restaurant?.img} alt="" />
-            </div>
-            <div className={styles.header__text}>
-              <h4 className={styles.header__title}>
-                {restaurant?.name}
-              </h4>
-              <div className={styles.subtitle}>{restaurant?.text}</div>
-              <div className={`d-flex align-items-center ${styles.rating}`}>
-                <Star />{restaurant?.rating}
+    <>
+      <MenuDropDown
+        id={"user__cart__dropdown"}
+        marginLeft={"-80px"}
+        notMenu={notMenu}
+        onClose={onClose}
+        showHeader={showHeader}
+      >
+        {!isLoading ? (
+          !userCart?.items?.length ? (
+            <EmptyCart />
+          ) : (
+            <>
+              <div className={styles.cartDropdown}>
+                <CartHeader />
+                {!checkout && (
+                  <>
+                    <div className={styles.dropdown__content}>
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      <div className="py-3">
+                        <div className="d-flex justify-content-between">
+                          <p className={styles.row__title}>Items in Cart</p>
+                          <div>
+                            {!confirm ? (
+                              <button
+                                className={styles.empty__cart__btn}
+                                onClick={() => setconfirm(true)}
+                              >
+                                <TbShoppingCartX className={styles.icon} />{" "}
+                                Empty cart
+                              </button>
+                            ) : (
+                              <div className={styles.confirm__action}>
+                                <span
+                                  onClick={() => {
+                                    (async () => {
+                                      await emptyUserCart();
+                                      getUserCart();
+                                      setconfirm(false);
+                                    })();
+                                  }}
+                                  className={styles.confirm}
+                                >
+                                  {" "}
+                                  Confirm
+                                </span>
+                                <span
+                                  onClick={() => setconfirm(false)}
+                                  className={styles.cancel}
+                                >
+                                  {" "}
+                                  Cancel
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className={`${styles.cart__items__container}`}>
+                          <Accordion id={"cart__items__accordion"}>
+                            {userCart?.items.map((item, i) => (
+                              <CartItem
+                                length={item?.addon_categories?.length}
+                                key={`${item.id}__${i}`}
+                                item={item}
+                                parentID={"cart__items__accordion"}
+                                id={`id${i}`}
+                              ></CartItem>
+                            ))}
+                          </Accordion>
+                        </div>
+                      </div>
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      <div className="py-3">
+                        <p className={styles.row__title}>Add a note</p>
+                        <div className={styles.add__note__input__wrapper}>
+                          <NoteIcon />
+
+                          <Form onSubmit={submitCartNotes}>
+                            {({ handleSubmit, submitting }) => (
+                              <form
+                                onSubmit={handleSubmit}
+                                className="w-100 d-flex"
+                              >
+                                <Field
+                                  initialValue={userCart?.cart_notes}
+                                  type="text"
+                                  name="notes"
+                                  render={({ input }) => (
+                                    <input
+                                      {...input}
+                                      className={styles.add_note__input}
+                                      type="text"
+                                      placeholder="Write anything"
+                                    />
+                                  )}
+                                ></Field>
+                                <button
+                                  disabled={submitting}
+                                  type="submit"
+                                  className={styles.save_note__btn}
+                                >
+                                  {submitting ? "Wait!" : "Save"}
+                                </button>
+                              </form>
+                            )}
+                          </Form>
+                        </div>
+                      </div>
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      <div className="py-3">
+                        <p
+                          className={`${styles.row__title} ${styles.payment__details__title}`}
+                        >
+                          Payment Details
+                        </p>
+                        <div className={styles.payment__details__wrapper}>
+                          <div className={`${styles.payment__details}`}>
+                            {userCart?.PaymentDetail?.subtotal && (
+                              <div className={`${styles.payment_details__row}`}>
+                                <p className={styles.details}>Subtotal</p>
+                                <span className={styles.value}>
+                                  {Number(
+                                    userCart?.PaymentDetail?.subtotal
+                                  ).toFixed(2)}{" "}
+                                  {
+                                    JSON.parse(
+                                      window.localStorage.getItem(
+                                        "currencyFormat"
+                                      )
+                                    ).value
+                                  }
+                                </span>
+                              </div>
+                            )}
+
+                            {userCart?.PaymentDetail?.delivery_fee && (
+                              <div className={`${styles.payment_details__row}`}>
+                                <p className={styles.details}>Delivery fee</p>
+                                <span className={styles.value}>
+                                  {Number(
+                                    userCart?.PaymentDetail?.delivery_fee
+                                  ).toFixed(2)}{" "}
+                                  {
+                                    JSON.parse(
+                                      window.localStorage.getItem(
+                                        "currencyFormat"
+                                      )
+                                    ).value
+                                  }
+                                </span>
+                              </div>
+                            )}
+
+                            {Boolean(
+                              userCart?.PaymentDetail?.discountCoupon
+                            ) && (
+                              <div className={`${styles.payment_details__row}`}>
+                                <p className={styles.details}>Discount</p>
+                                <span className={styles.value}>
+                                  {Number(
+                                    userCart?.PaymentDetail?.discountCoupon
+                                  ).toFixed(2)}{" "}
+                                  {
+                                    JSON.parse(
+                                      window.localStorage.getItem(
+                                        "currencyFormat"
+                                      )
+                                    ).value
+                                  }
+                                </span>
+                              </div>
+                            )}
+
+                            {userCart?.PaymentDetail?.total_amount && (
+                              <div className={`${styles.payment_details__row}`}>
+                                <p className={styles.details}>Total amount</p>
+                                <span
+                                  className={`${styles.value} ${styles.total}`}
+                                >
+                                  {Number(
+                                    userCart?.PaymentDetail?.total_amount
+                                  ).toFixed(2)}{" "}
+                                  {
+                                    JSON.parse(
+                                      window.localStorage.getItem(
+                                        "currencyFormat"
+                                      )
+                                    ).value
+                                  }
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                      {/* ///////////////////////////////////////////////////////////////// */}
+                    </div>
+                    <div className={styles.cart__wrapper}>
+                      <div className="py-4">
+                        <SubmitBtn
+                          onClick={() => setCheckout(true)}
+                          solidStyle={true}
+                        >
+                          Checkout
+                        </SubmitBtn>
+                      </div>
+                    </div>
+                  </>
+                )}
+                {checkout && <CheckoutForm setCheckout={setCheckout} />}
               </div>
-              <p className={`d-flex align-items-center ${styles.location}`}>
-                <HiLocationMarker />{restaurant?.address}
-              </p>
+            </>
+          )
+        ) : (
+          <div className={styles.isLoading__wrapper}>
+            <div className="text-center">
+              <div
+                className={`spinner-border ${styles.spinner}`}
+                role="status"
+              ></div>
+              <div className="py-3">Please Wait!</div>
             </div>
           </div>
-        </div>
-        <div className={styles.items_cart_content}>
-          <p className={styles.items_cart__title}>Items In Cart</p>
-          <div className={` d-flex flex-column ${styles.items__cart}`}>
-            {items?.map(item => (
-              <div key={item.id} className={` d-flex justify-content-between align-items-center ${styles.item__cart}`}>
-                <span className={styles.item__name}>{item?.name}</span>
-                <div className={`d-flex align-items-center ${styles.item_amount_control}`}>
-                  <button className={styles.remove}><GoDash /></button>
-                  <span className={styles.item__amount}>{item?.amount}</span>
-                  <button className={styles.add}><HiPlus /></button>
-                </div>
-                <div className={styles.item__price}>{item?.amount * item.itemPrice}<span className={styles.SAR}> SAR</span></div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className={styles.note}>
-          <p className={styles.note__title}>Add a note</p>
-          <div className={`d-flex align-items-center ${styles.addd__note}`}>
-            <NoteIcon />
-            <input className={styles.add_note__input} type="text" placeholder='Write anything' name='add__note' />
-            <button className={styles.save_note__btn}>Save</button>
-          </div>
-        </div>
-        <div className={styles.payment_details_content}>
-          <p className={styles.payment_details__title}>Payment Details</p>
-          <div className={`d-flex flex-column ${styles.payment__details}`}>
-            {paymentDetails?.map(p => (
-              <div key={p.id} className={`d-flex align-items-center justify-content-between ${styles.payment_details__row}`}>
-                <p className={styles.details}>{p.detail}</p>
-                <span className={styles.value}>{p.value.toFixed(2)} SAR</span>
-              </div>
-            ))}
-            <div className={`d-flex align-items-center justify-content-between ${styles.payment_details__row}`}>
-              <p className={styles.details}>Total amount</p>
-              <span className={`${styles.value} ${styles.total}`}>{totalPaymentDratils.toFixed(2)} SAR</span>
-            </div>
-          </div>
-        </div>
-        <button 
-          className={`d-flex align-items-center justify-content-center ${styles.cheackout__btn}`} 
-        >
-          Checkout
-        </button>
-      </div>
-    </DropDownMenu>
-  )
-}
+        )}
+      </MenuDropDown>
+    </>
+  );
+});
